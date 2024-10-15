@@ -6,5 +6,10 @@
   .nav-link {
     @apply text-gray-700 hover:text-gray-900;
   }
+
+  .paragraph-text {
+    @apply text-gray-700 m-5
+  }
+
 }
 

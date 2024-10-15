@@ -1,5 +1,3 @@
-import React from 'react';
-
 const NavBar = () => {
     return ( 
         <nav className="bg-gray-100 py-4">
