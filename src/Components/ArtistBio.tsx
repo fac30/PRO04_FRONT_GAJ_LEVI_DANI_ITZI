@@ -20,7 +20,7 @@ const ArtistBio: React.FC = () => {
             <img 
                 className="h-40 w-full rounded-lg object-cover object-center md:h-60 shadow-lg" 
                 src = {artist.imageURL}/>
-            <p className='paragraph-text'>{artist.bio}</p>
+            <p className='paragraph-text'>{artist.bio} {artist.bio}</p>
         </div>
         </div>
 

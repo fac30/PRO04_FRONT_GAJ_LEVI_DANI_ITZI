@@ -2,6 +2,7 @@ import "./App.css";
 import NavBar from "./Components/NavBar";
 import Gallery from "./Components/Gallery"
 import ArtistBio from "./Components/ArtistBio";
+import Footer from "./Components/Footer";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
     
       <ArtistBio />
       <Gallery />
+      <Footer />
       
 
     </>
