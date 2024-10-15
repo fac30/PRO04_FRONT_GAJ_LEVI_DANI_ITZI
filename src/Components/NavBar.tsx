@@ -5,10 +5,10 @@ const NavBar = () => {
         <nav className="bg-gray-100 py-4">
             <div className="container mx-auto">
                 <ul className="flex justify-center space-x-6">
-                    <li><a href="/" className="text-gray-700 hover:text-gray-900">Home</a></li>
-                    <li><a href="/" className="text-gray-700 hover:text-gray-900">Apparel</a></li>
-                    <li><a href="/" className="text-gray-700 hover:text-gray-900">Mugs</a></li>
-                    <li><a href="/" className="text-gray-700 hover:text-gray-900">Stationary</a></li>
+                    <li><a href="/" className="nav-link">Home</a></li>
+                    <li><a href="/" className="nav-link">Apparel</a></li>
+                    <li><a href="/" className="nav-link">Mugs</a></li>
+                    <li><a href="/" className="nav-link">Stationary</a></li>
                 </ul>
             </div>
         </nav>
