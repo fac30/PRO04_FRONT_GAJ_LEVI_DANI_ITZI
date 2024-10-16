@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 
-
 function NavBar() {
 
     const [IsOpen, setIsOpen] = useState(false);

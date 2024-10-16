@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 interface ImageData {
     src: string;
@@ -23,6 +24,10 @@ const Gallery: React.FC = () => {
                             alt={image.caption}
                         />
                         <p className="mt-2 text-gray-600">{image.caption}</p>
+
+                        <Link to='/products'>
+                        <button className='buttonStyling'>View More...</button>
+                        </Link>
                     </div> 
                 ))}
             </div>

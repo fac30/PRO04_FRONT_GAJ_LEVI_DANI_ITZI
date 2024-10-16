@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-//import ArtistPage from "./Pages/ArtistPage";
+import ArtistPage from "./Pages/ArtistPage";
 import ProductPage from "./Pages/ProductPage";
 
 const App: React.FC = () => {
@@ -13,7 +13,8 @@ const App: React.FC = () => {
       </h1>
     <Router>
       <Routes>
-        <Route path="/" element={<ProductPage />} />
+        <Route path="/" element={<ArtistPage />} />
+        <Route path="/products" element={<ProductPage />} />
       </Routes>
     </Router>
 

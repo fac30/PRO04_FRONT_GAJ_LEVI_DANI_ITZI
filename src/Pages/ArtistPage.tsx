@@ -1,17 +1,17 @@
 import React from "react";
-import NavBar from "../Components/NavBar";
+import Layout from "../Components/Layout";
 import ArtistBio from "../Components/ArtistBio";
 import Gallery from "../Components/Gallery";
-import Footer from "../Components/Footer";
+
 
 const ArtistPage: React.FC = () => {
   return (
     <>
-      <NavBar />
+    <Layout>
       <ArtistBio />
       <Gallery />
-      <Footer />
-    </>
+    </Layout>
+      </>
   );
 };
 

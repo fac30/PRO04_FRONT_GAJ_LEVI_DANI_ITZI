@@ -1,4 +1,5 @@
 import React from "react";
+import Layout from "../Components/Layout";
 import OptionButtonGroup from "../Components/OptionButtonGroup";
 
 interface ImageData {
@@ -20,18 +21,15 @@ const ProductPage: React.FC = () => {
     ];
 
     return ( 
-        <>
 
+        <Layout>
         <div className="mainContainer grid grid-cols-2">
-
-        
-
-        <div className="productContainer grid grid-cols-2 m-28 gap-4">
-        {images.map((image, index) => (
-                    <div key={index} className="text-center">
-                        <img 
-                            className="h-40 w-full rounded-lg object-cover object-center md:h-60 shadow-lg" 
-                            src={image.src}
+         <div className="productContainer grid grid-cols-2 m-28 gap-4">
+          {images.map((image, index) => (
+                <div key={index} className="text-center">
+                    <img 
+                     className="h-40 w-full rounded-lg object-cover object-center md:h-60 shadow-lg" 
+                     src={image.src}
                   />
              </div>
              ))}
@@ -57,8 +55,8 @@ const ProductPage: React.FC = () => {
     </div>
     </div>
 
-
-        </>
+    </Layout>
+        
 
      );
 }
