@@ -13,7 +13,7 @@ const Gallery: React.FC = () => {
     ];
 
     return ( 
-        <section className="container mx-auto py-4">
+        <section className="container m-28 py-4">
             <div className="grid grid-cols-3 gap-4">
                 {images.map((image, index) => (
                     <div key={index} className="text-center">

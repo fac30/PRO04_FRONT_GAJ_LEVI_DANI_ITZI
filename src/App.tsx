@@ -11,7 +11,7 @@ function App() {
     
 
 
-      <h1 className="text-3xl font-bold underline text-center ">Canvas Collective</h1>
+      <h1 className="text-3xl font-bold underline text-center m-16 ">Canvas Collective</h1>
     
       <ArtistBio />
       <Gallery />

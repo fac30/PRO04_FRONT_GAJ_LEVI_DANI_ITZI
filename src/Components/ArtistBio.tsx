@@ -15,7 +15,7 @@ const ArtistBio: React.FC = () => {
 
 
     return ( 
-        <div className="container mx-auto py-4">
+        <div className="container m-28 py-4">
         <div className="grid grid-cols-2 gap-4">
             <img 
                 className="h-40 w-full rounded-lg object-cover object-center md:h-60 shadow-lg" 
