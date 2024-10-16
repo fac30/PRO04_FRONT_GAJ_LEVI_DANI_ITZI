@@ -11,5 +11,9 @@
     @apply text-gray-700 m-5
   }
 
+  .buttonStyling {
+    @apply m-2 p-5 border-solid border-2 border-gray-900 hover:bg-gray-400
+  }
+
 }
 
