@@ -41,9 +41,10 @@ const ProductPage: React.FC = () => {
     <p> need to put price here</p>
     <br />
     <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo officia cum voluptatibus fugiat dignissimos cupiditate dolorum commodi deleniti sint. Quam sed molestiae corporis minus dolorum quas dicta nesciunt, cum tenetur.</p>
-    <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo officia cum voluptatibus fugiat dignissimos cupiditate dolorum commodi deleniti sint. Quam sed molestiae corporis minus dolorum quas dicta nesciunt, cum tenetur.</p>
+    <br />
     <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo officia cum voluptatibus fugiat dignissimos cupiditate dolorum commodi deleniti sint. Quam sed molestiae corporis minus dolorum quas dicta nesciunt, cum tenetur.</p>
     <br />
+    <p>Sizes: </p>
     <OptionButtonGroup 
     options={availableSizes}
     onOptionSelect={handleSizeSelection}

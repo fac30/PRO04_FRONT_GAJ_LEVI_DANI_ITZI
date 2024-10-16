@@ -8,7 +8,7 @@ const App: React.FC = () => {
 
   return (
 <>
-    <h1 className="text-3xl font-bold underline text-center m-16 ">
+    <h1 className="text-5xl font-bold text-center m-16 ">
         Canvas Collective
       </h1>
     <Router>

@@ -3,7 +3,7 @@ import { GiFootprint } from "react-icons/gi";
 
 const Footer = () => {
     return ( 
-        <footer className="bg-gray-100 py-4 text-center">
+        <footer className="footerStyling">
         <GiFootprint />
         </footer>
        

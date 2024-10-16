@@ -12,7 +12,11 @@
   }
 
   .buttonStyling {
-    @apply m-2 p-5 border-solid border-2 border-gray-900 hover:bg-gray-400
+    @apply m-2 p-3 border-solid border-2 border-gray-900 hover:bg-gray-400
+  }
+
+  .footerStyling{
+    @apply bg-gray-100 py-4 flex justify-center items-center
   }
 
 }
