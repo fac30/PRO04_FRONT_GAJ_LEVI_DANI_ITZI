@@ -3,5 +3,5 @@ variable "region" {
 }
 
 variable "Name" {
-    default = "canvas-collective"
+  default = "canvas-collective"
 }
