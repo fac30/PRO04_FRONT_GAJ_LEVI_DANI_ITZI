@@ -1,25 +1,21 @@
 import "./App.css";
-import NavBar from "./Components/NavBar";
-import Gallery from "./Components/Gallery"
-import ArtistBio from "./Components/ArtistBio";
-import Footer from "./Components/Footer";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import ArtistPage from "./Pages/ArtistPage";
 
-function App() {
+const App: React.FC = () => {
   return (
-    <>
-    <NavBar />
-    
+<>
+    <h1 className="text-3xl font-bold underline text-center m-16 ">
+        Canvas Collective
+      </h1>
+    <Router>
+      <Routes>
+        <Route path="/" element={<ArtistPage />} />
+      </Routes>
+    </Router>
 
-
-      <h1 className="text-3xl font-bold underline text-center m-16 ">Canvas Collective</h1>
-    
-      <ArtistBio />
-      <Gallery />
-      <Footer />
-      
-
-    </>
+  </>
   );
-}
+};
 
 export default App;
