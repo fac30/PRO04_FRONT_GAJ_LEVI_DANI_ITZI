@@ -4,7 +4,7 @@ provider "aws" {
 
 resource "aws_s3_bucket" "canvas-collective" {
   bucket = "canvas-collective"
-  acl    = "public-read"
+  acl    = "private"
 
   website {
     index_document = "index.html"
