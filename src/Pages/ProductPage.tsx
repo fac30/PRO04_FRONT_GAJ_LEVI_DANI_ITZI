@@ -12,6 +12,11 @@ const ProductPage: React.FC = () => {
       console.log(`Selected size: ${size}`);
     };
   
+    const availableColors = ["Black", "Grey", "White"];
+    const handleColorSelection = (color: string) => {
+      console.log(`Selected size: ${color}`);
+    };
+
 
     const images: ImageData[] = [
         {src: "https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"},
@@ -44,6 +49,14 @@ const ProductPage: React.FC = () => {
     <br />
     <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo officia cum voluptatibus fugiat dignissimos cupiditate dolorum commodi deleniti sint. Quam sed molestiae corporis minus dolorum quas dicta nesciunt, cum tenetur.</p>
     <br />
+    <p>Colors:</p>
+    <OptionButtonGroup 
+    options = {availableColors}
+    onOptionSelect={handleColorSelection}
+    />
+
+    <br />
+    
     <p>Sizes: </p>
     <OptionButtonGroup 
     options={availableSizes}

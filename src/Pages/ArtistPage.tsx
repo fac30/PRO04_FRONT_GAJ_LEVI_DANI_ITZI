@@ -10,6 +10,7 @@ const ArtistPage: React.FC = () => {
     <Layout>
       <ArtistBio />
       <Gallery />
+      <Gallery />
     </Layout>
       </>
   );

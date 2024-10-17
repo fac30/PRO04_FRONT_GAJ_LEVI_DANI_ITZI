@@ -1,3 +1,5 @@
+//Stretch goal for an about page
+
 import { useState, useRef, useEffect } from "react";
 
 function NavBar() {
