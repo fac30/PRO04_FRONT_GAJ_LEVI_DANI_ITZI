@@ -1,5 +1,3 @@
-//Stretch goal for an about page
-
 import { useState, useRef, useEffect } from "react";
 import { CiShoppingCart } from "react-icons/ci";
 
@@ -12,7 +10,7 @@ function NavBar() {
     useEffect(() => {
         function handleClickOutside(e: MouseEvent) {
             if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-                setIsOpen(false); 
+                setIsOpen(false);
             }
         }
 
@@ -23,17 +21,16 @@ function NavBar() {
         };
     }, []);
 
-
     return (
         <nav className="bg-gray-100 py-4">
             <div className="container mx-auto relative"> {/* Make this relative for dropdown positioning */}
                 <ul className="flex justify-center space-x-6">
                     <li><a href="/" className="nav-link">Home</a></li>
 
-                    {/* Button to toggle dropdown */}
-                    <li ref = {dropdownRef}>
+                    {/* Wrap dropdown in a div and add the ref here */}
+                    <div ref={dropdownRef} className="relative">
                         <button
-                            onClick={() => setIsOpen(!IsOpen)} // Use IsOpen here
+                            onClick={() => setIsOpen(!IsOpen)}
                             className="nav-link"
                         >
                             Artist
@@ -54,20 +51,19 @@ function NavBar() {
                                 ))}
                             </ul>
                         )}
-                    </li>
-
+                    </div>
 
                     <li><a href="/" className="nav-link">Apparel</a></li>
                     <li><a href="/" className="nav-link">Mugs</a></li>
                     <li><a href="/" className="nav-link">Stationary</a></li>
-                    
-                    <div className=" flex  ml-auto">
-                    <CiShoppingCart size={30}/>
+
+                    <div className="flex ml-auto">
+                        <CiShoppingCart size={30} />
                     </div>
                 </ul>
             </div>
         </nav>
     );
 }
- 
+
 export default NavBar;

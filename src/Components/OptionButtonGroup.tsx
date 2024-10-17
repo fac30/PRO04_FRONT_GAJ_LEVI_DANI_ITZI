@@ -3,9 +3,11 @@ import "../App.css";
 
 
 interface OptionButtonGroupProps {
-    options: string[];
-    onOptionSelect: (option: string) => void;
-  }
+  options: string[];
+  onOptionSelect: (option: string) => void;
+  renderOption?: (option: string) => React.ReactNode;  // Add this line
+}
+
 
 const OptionButtonGroup: React.FC<OptionButtonGroupProps> = ({ options, onOptionSelect, renderOption }) => {
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
