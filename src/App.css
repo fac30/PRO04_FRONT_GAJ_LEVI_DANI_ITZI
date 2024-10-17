@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .nav-link {
+    @apply text-gray-700 hover:text-gray-900;
+  }
+
+  .paragraph-text {
+    @apply text-gray-700 m-5
+  }
+
+  .buttonStyling {
+    @apply m-2 p-3 border-solid border-2 border-gray-900 hover:bg-gray-400
+  }
+
+  .footerStyling{
+    @apply bg-gray-100 py-4 flex justify-center items-center
+  }
+
+}
+
