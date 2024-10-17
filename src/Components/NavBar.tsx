@@ -1,6 +1,7 @@
 //Stretch goal for an about page
 
 import { useState, useRef, useEffect } from "react";
+import { CiShoppingCart } from "react-icons/ci";
 
 function NavBar() {
 
@@ -59,6 +60,10 @@ function NavBar() {
                     <li><a href="/" className="nav-link">Apparel</a></li>
                     <li><a href="/" className="nav-link">Mugs</a></li>
                     <li><a href="/" className="nav-link">Stationary</a></li>
+                    
+                    <div className=" flex  ml-auto">
+                    <CiShoppingCart size={30}/>
+                    </div>
                 </ul>
             </div>
         </nav>
