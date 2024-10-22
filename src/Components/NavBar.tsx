@@ -2,27 +2,29 @@ import { useState, useRef, useEffect } from "react";
 import { CiShoppingCart } from "react-icons/ci";
 import { Artist } from "../types/Artist";
 
-interface NavBarProps{
-    artist: Artist; 
-}
 
 function NavBar() {
 
-    const [IsOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
    
     const [artists, setArtists] =  useState<Artist[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null)
 
 
     useEffect(() => {
         const fetchArtists = async () => {
             try {
                 const response = await fetch("http://localhost:3000/artists");
+                if (!response.ok){
+                    throw new Error ('Failed to fetch artists');
+                }
                 const data = await response.json();
                 setArtists(data);
-                setLoading(false);
             } catch (err) {
                 setError('Whoopsie Daisy');
+            } finally {
                 setLoading(false);
             }
         };
@@ -54,26 +56,34 @@ function NavBar() {
                     {/* Wrap dropdown in a div and add the ref here */}
                     <div ref={dropdownRef} className="relative">
                         <button
-                            onClick={() => setIsOpen(!IsOpen)}
+                            onClick={() => setIsOpen(!isOpen)}
                             className="nav-link"
                         >
                             Artist
                         </button>
 
+                        {loading ? (
+                            <div className="text-sm text-gray-500">Loading...</div>
+                        ) : error ? (
+                            <div className="text-sm text-gray-500">{error}</div>
+                        ) :
+
                         {/* Dropdown */}
-                        {IsOpen && (
+                        (
+                        isOpen && (
                             <ul className="absolute mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                                {artists.map((artist, index) => (
-                                    <li key={index}>
+                                {artists.map((artist) => (
+                                    <li key= {artist.id || artist.name}>
                                         <a
-                                            href={`/artist/${artist.toLowerCase().replace(' ', '-')}`}
+                                            href={`/artist/${artist.id}`}
                                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                         >
-                                            {artist}
+                                            {artist.name}
                                         </a>
                                     </li>
                                 ))}
                             </ul>
+                        )
                         )}
                     </div>
 

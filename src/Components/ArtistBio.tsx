@@ -14,13 +14,14 @@ const ArtistBio: React.FC<ArtistBioProps> = ({ artist }) => {
             <img 
                 className="h-40 w-full rounded-lg object-cover object-center md:h-60 shadow-lg" 
                 src = {artist.image}/>
-            <p className='paragraph-text'>{artist.bio} {artist.bio}</p>
+            <p className='paragraph-text'> {artist.bio}</p>
         </div>
         <div className="mt-4">
-            <a>
-                hfef={artist.socials}
-                target="_blank"
-            </a>
+        <a 
+                    href={artist.socials}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                />
         </div>
         </div>
 

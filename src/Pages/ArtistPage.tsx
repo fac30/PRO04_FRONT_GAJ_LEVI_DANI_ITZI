@@ -1,4 +1,5 @@
 import React, { useState, useEffect} from "react";
+import { useParams } from "react-router-dom";
 import Layout from "../Components/Layout";
 import ArtistBio from "../Components/ArtistBio";
 import Gallery from "../Components/Gallery";
@@ -7,14 +8,15 @@ import { Artist } from "../types/Artist";
 
 const ArtistPage: React.FC = () => {
 
-  const [artists, setArtists] = useState<Artist[]>([]);
+  const { artistId } = useParams<{ artistId: string}>();
+  const [artists, setArtists] = useState<Artist | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
 useEffect(() => {
   const fetchArtists = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/artist/${id}`);
+      const response = await fetch(`http://localhost:3000/artists/${artistId}`);
       if (!response.ok) {
         throw new Error('Failed to fetch artists');
       }
@@ -26,8 +28,11 @@ useEffect(() => {
       setLoading(false);
     }
   };
+
+  if (artistId) {
   fetchArtists();
-}, []);
+}
+}, [artistId]);
 
 if (loading) {
   return (
@@ -39,7 +44,7 @@ if (loading) {
   );
 }
 
-if (error) {
+if (error || !artists) {
   return (
     <Layout>
       <div className="flex items-center justify-center min-h-screen">
@@ -53,12 +58,8 @@ if (error) {
 
 return (
   <Layout>
-    {artists.map((artist) => (
-      <div key={artist.name}>
-        <ArtistBio artist={artist} />
-        <Gallery artist={artist} />
-      </div>
-    ))}
+   <ArtistBio artist={artists} />
+   <Gallery artist={artists} />
   </Layout>
 );
 };
