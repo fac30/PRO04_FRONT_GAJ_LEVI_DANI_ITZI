@@ -1,11 +1,35 @@
 import { useState, useRef, useEffect } from "react";
 import { CiShoppingCart } from "react-icons/ci";
+import { Artist } from "../types/Artist";
+
+interface NavBarProps{
+    artist: Artist; 
+}
 
 function NavBar() {
 
     const [IsOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
-    const artists = ['Artist 1', 'Artist 2', 'Artist 3'];
+   
+    const [artists, setArtists] =  useState<Artist[]>([]);
+
+
+    useEffect(() => {
+        const fetchArtists = async () => {
+            try {
+                const response = await fetch("http://localhost:3000/artists");
+                const data = await response.json();
+                setArtists(data);
+                setLoading(false);
+            } catch (err) {
+                setError('Whoopsie Daisy');
+                setLoading(false);
+            }
+        };
+        fetchArtists()
+    }, []);
+
+
 
     useEffect(() => {
         function handleClickOutside(e: MouseEvent) {
