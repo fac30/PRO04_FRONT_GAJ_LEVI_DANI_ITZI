@@ -1,9 +1,9 @@
-name: Frontend Deployment
+name: Frontend Deployment testing
 
 on:
     push:
         branches:
-            - automate
+            - main
 
 jobs:
     deploy:
