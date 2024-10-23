@@ -13,7 +13,7 @@ const App: React.FC = () => {
       </h1>
     <Router>
       <Routes>
-        <Route path="/" element={<ArtistPage />} />
+        <Route path="/artist/:id" element={<ArtistPage />} />
         <Route path="/products" element={<ProductPage />} />
       </Routes>
     </Router>

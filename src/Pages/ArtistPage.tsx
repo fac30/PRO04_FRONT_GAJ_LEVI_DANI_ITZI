@@ -6,21 +6,22 @@ import Gallery from "../Components/Gallery";
 import { Artist } from "../types/Artist";
 
 const ArtistPage: React.FC = () => {
-  // let { id } = useParams<{ id: string }>();
-  const [artistID, setArtistID] = useState<string | null>(null);
+  const { artistId } = useParams<{ artistId: string }>();
+  //const [artistID, setArtistID] = useState<Artist | null>(null);
   const [artists, setArtists] = useState<Artist | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  console.log(id);
+  
 
 
   useEffect(() => {
     const fetchArtists = async () => {
     
       try {
+        console.log(`Inside Fetch ${artistId}`);
         const response = await fetch(
-          `http://localhost:3000/artist/${id}`
+          `http://localhost:3000/artist/${artistId}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch artists");
@@ -34,10 +35,10 @@ const ArtistPage: React.FC = () => {
       }
     };
 
-    if (id) {
+    if (artistId) {
       fetchArtists();
     }
-  }, [id]);
+  }, [artistId]);
 
   if (loading) {
     return (

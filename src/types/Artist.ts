@@ -3,5 +3,5 @@ export interface Artist {
     bio: string;
     socials: string;
     image: string;
-    id: number;
+    id: string;
   }
