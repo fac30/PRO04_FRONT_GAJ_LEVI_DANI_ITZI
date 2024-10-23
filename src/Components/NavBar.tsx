@@ -1,3 +1,5 @@
+//add a clcik handler for the id / artist id
+
 import { useState, useRef, useEffect } from "react";
 import { CiShoppingCart } from "react-icons/ci";
 import { Artist } from "../types/Artist";
@@ -22,7 +24,8 @@ function NavBar() {
                 }
                 const data = await response.json();
                 setArtists(data);
-            } catch (err) {
+            } catch (error) {
+                console.log(error);
                 setError('Whoopsie Daisy');
             } finally {
                 setLoading(false);
@@ -68,7 +71,7 @@ function NavBar() {
                             <div className="text-sm text-gray-500">{error}</div>
                         ) :
 
-                        {/* Dropdown */}
+                       
                         (
                         isOpen && (
                             <ul className="absolute mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
