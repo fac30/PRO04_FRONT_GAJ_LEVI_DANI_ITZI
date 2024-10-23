@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { CiShoppingCart } from "react-icons/ci";
 import { Artist } from "../types/Artist";
 
+//hello
 
 function NavBar() {
 
