@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
+import { useState } from "react";
 import { CiShoppingCart } from "react-icons/ci";
 import { FaUserCircle } from "react-icons/fa";
 
