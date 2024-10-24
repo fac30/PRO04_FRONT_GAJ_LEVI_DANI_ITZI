@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import { CiShoppingCart } from "react-icons/ci";
 import { Artist } from "../types/Artist";
 import { useNavigate } from "react-router-dom";
 
@@ -118,9 +117,7 @@ function NavBar() {
             </a>
           </li>
 
-          <div className="flex ml-auto">
-            <CiShoppingCart size={30} />
-          </div>
+       
         </ul>
       </div>
     </nav>
