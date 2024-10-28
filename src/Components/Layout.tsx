@@ -17,11 +17,6 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
 	return (
 		<>
-            <HeaderBar />
-            <button onClick={handleLoginButtonClick} className="login-button">
-                Login / Register
-            </button>
-            <LoginModel isOpen={isLoginModelOpen} onClose={closeLoginModel} />
 			<NavBar />
 			<main>{children}</main>
 			<Footer />
