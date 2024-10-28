@@ -6,7 +6,7 @@ import HeaderBar from './HeaderBar';
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 	return (
 		<>
-			<HeaderBar />
+		    <HeaderBar />
 			<NavBar />
 			<main>{children}</main>
 			<Footer />
