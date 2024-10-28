@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-interface LoginModelProps {
+export interface LoginModelProps {
     isOpen: boolean;
     onClose: () => void;
 }
