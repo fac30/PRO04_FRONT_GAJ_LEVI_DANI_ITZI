@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface LoginModelProps {
     isOpen: boolean;
@@ -15,6 +15,18 @@ const LoginModel: React.FC<LoginModelProps> = ({ isOpen, onClose }) => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+
+  // Effect to prevent background scrolling when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'; // Prevent scrolling
+    } else {
+      document.body.style.overflow = 'unset'; // Allow scrolling
+    }
+    return () => {
+      document.body.style.overflow = 'unset'; // Clean up on unmount
+    };
+  }, [isOpen]);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -43,8 +55,8 @@ const LoginModel: React.FC<LoginModelProps> = ({ isOpen, onClose }) => {
   return (
     <>
       {isOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white rounded-lg p-6 shadow-lg">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 shadow-lg z-60">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-lg font-bold">
                 {isUserLoggedIn ? "Login" : "Register"}
@@ -100,6 +112,7 @@ const LoginModel: React.FC<LoginModelProps> = ({ isOpen, onClose }) => {
                 </>
               )}
               <input type="checkbox" /> Sign up to newsletter
+              <br></br>
               <button type="submit" disabled={isSubmitting} className="bg-blue-500 text-white rounded p-2 mt-2">
                 {isUserLoggedIn ? "Login" : "Register"}
               </button>
