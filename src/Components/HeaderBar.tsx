@@ -1,36 +1,63 @@
-// import React, { useState } from 'react';
-import { useState } from "react";
-import { CiShoppingCart } from "react-icons/ci";
-import { FaUserCircle } from "react-icons/fa";
+import { useState } from 'react';
+import { CiShoppingCart } from 'react-icons/ci';
+import { FaUserCircle } from 'react-icons/fa';
+import LoginModel from './LoginModel';
+import { authService } from '../AuthService';
 
 export default function HeaderBar() {
-  const [isDropdownOpen, setDropdownOpen] = useState(false);
+	const [isDropdownOpen, setDropdownOpen] = useState(false);
+	const [isLoginModelOpen, setIsLoginModelOpen] = useState(false);
+	const [error, setError] = useState('');
 
-  const toggleDropdown = () => {
-    setDropdownOpen(!isDropdownOpen);
-  };
+	const toggleDropdown = () => {
+		setDropdownOpen(!isDropdownOpen);
+	};
 
-  const handleLogout = () => {
-    localStorage.clear();
-    window.location.href = "/logout";
-  };
+	const handleLogout = () => {
+		localStorage.clear();
+		window.location.href = '/logout';
+	};
 
-  return (
-      <div>
-          <div className="absolute top-0 right-0 m-4 flex items-center">
-              <CiShoppingCart size={30} className="mr-4" />
-              <div id="profile" className="relative">
-                  <button className="dropdown-toggle flex items-center" onClick={toggleDropdown}>
-                      <FaUserCircle size={30} />
-                  </button>
-                  {isDropdownOpen && (
-                    <div className="dropdown-menu absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                        <a href="/me" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Account</a>
-                        <button onClick={handleLogout} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</button>
-                    </div>
-                  )}
-              </div>
-          </div>
-    </div>
-  )
+	const openLoginModel = () => setIsLoginModelOpen(true);
+	const closeLoginModel = () => setIsLoginModelOpen(false);
+
+	const handleLogin = async (credentials: { email: string; password: string }) => {
+		try {
+			await authService.login(credentials);
+			closeLoginModel();
+			window.location.reload();
+		} catch (error: unknown) {
+			if (error instanceof Error) {
+				setError(error.message);
+			} else {
+				setError('An unknown error occurred');
+			}
+		}
+	};
+
+	return (
+		<div>
+			<div className='absolute top-0 right-0 m-4 flex items-center'>
+				<CiShoppingCart size={30} className='mr-4' />
+				<div id='profile' className='relative'>
+					<button className='dropdown-toggle flex items-center' onClick={toggleDropdown}>
+						<FaUserCircle size={30} />
+					</button>
+					{isDropdownOpen && (
+						<div className='dropdown-menu absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5'>
+							<a href='/me' className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'>My Account</a>
+							<button onClick={openLoginModel} className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'>Login</button>
+							<button onClick={handleLogout} className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'>Logout</button>
+						</div>
+					)}
+					<LoginModel
+						isOpen={isLoginModelOpen}
+						onClose={closeLoginModel}
+						onLogin={handleLogin}
+						error={error}
+					/>
+				</div>
+			</div>
+		</div>
+	);
 }

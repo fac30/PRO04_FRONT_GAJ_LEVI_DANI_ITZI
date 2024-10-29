@@ -1,13 +1,17 @@
-import React from 'react';
+
 import NavBar from './NavBar';
 import Footer from './Footer';
+
 import HeaderBar from './HeaderBar';
 
+// Define props for the Layout component
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+ 
+
 	return (
 		<>
-		    <HeaderBar />
 			<NavBar />
+			<HeaderBar/>
 			<main>{children}</main>
 			<Footer />
 		</>
