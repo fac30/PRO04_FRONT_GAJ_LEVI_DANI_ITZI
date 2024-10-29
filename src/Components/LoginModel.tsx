@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from 'react';
+import { authService } from '../AuthService'; // Adjust the import path as needed
 
+// In LoginModel.tsx
 export interface LoginModelProps {
 	isOpen: boolean;
 	onClose: () => void;
+	onLogin: (credentials: { email: string; password: string }) => Promise<void>; // Adjust the type as needed
+	error?: string; // Optional error message
 }
 
-const LoginModel: React.FC<LoginModelProps> = ({ isOpen, onClose }) => {
+
+const LoginModel: React.FC<LoginModelProps> = ({ isOpen, onClose, onLogin }) => {
 	const [isLoginMode, setIsLoginMode] = useState(true);
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
-	const [confirmPassword, setConfirmPassword] = useState('');
-	const [username, setUsername] = useState('');
-	const [address, setAddress] = useState('');
-	const [isSubmitting, setIsSubmitting] = useState(false);
-	const [errorMessage, setErrorMessage] = useState('');
+	const [email, setEmail] = useState<string>('');
+	const [password, setPassword] = useState<string>('');
+	const [confirmPassword, setConfirmPassword] = useState<string>('');
+	const [username, setUsername] = useState<string>('');
+	const [address, setAddress] = useState<string>('');
+	const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+	const [errorMessage, setErrorMessage] = useState<string>('');
 
 	useEffect(() => {
 		if (isOpen) {
@@ -26,30 +31,39 @@ const LoginModel: React.FC<LoginModelProps> = ({ isOpen, onClose }) => {
 		};
 	}, [isOpen]);
 
-	const handleSubmit = async (event: React.FormEvent) => {
-		event.preventDefault();
-		setIsSubmitting(true);
-		setErrorMessage('');
+ // ... previous code remains the same
 
-		try {
-			if (isLoginMode) {
-				// Perform login logic
-				// Example: await loginUser(email, password);
-			} else {
-				// Perform registration logic
-				if (password !== confirmPassword) {
-					throw new Error('Passwords do not match');
-				}
-				// Example: await registerUser(username, email, password, address);
-			}
-		} catch (error) {
-			setErrorMessage(
-				error instanceof Error ? error.message : 'An error occurred. Please try again.'
-			);
-		} finally {
-			setIsSubmitting(false);
-		}
-	};
+ const handleSubmit = async (event: React.FormEvent) => {
+ 	event.preventDefault();
+ 	setIsSubmitting(true);
+ 	setErrorMessage('');
+
+ 	try {
+ 		if (isLoginMode) {
+ 			// Perform login logic
+ 			const credentials = { email, password }; // Gather form data
+ 			await onLogin(credentials); // Use the onLogin prop here
+ 			onClose(); // Close modal on successful login
+ 			window.location.reload(); // Refresh or update UI
+ 		} else {
+ 			// Perform registration logic
+ 			if (password !== confirmPassword) {
+ 				throw new Error('Passwords do not match');
+ 			}
+ 			await authService.register({ username, email, password, address });
+ 			onClose(); // Close modal on successful registration
+ 			window.location.reload(); // Refresh or update UI
+ 		}
+ 	} catch (error) {
+ 		setErrorMessage(
+ 			error instanceof Error ? error.message : 'An error occurred. Please try again.'
+ 		);
+ 	} finally {
+ 		setIsSubmitting(false);
+ 	}
+ };
+
+ // ... the rest of the component
 
 	return (
 		<>
