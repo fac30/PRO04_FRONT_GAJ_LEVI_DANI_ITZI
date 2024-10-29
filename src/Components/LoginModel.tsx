@@ -6,12 +6,13 @@ export interface LoginModelProps {
 }
 
 const LoginModel: React.FC<LoginModelProps> = ({ isOpen, onClose }) => {
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const [isLoginMode, setIsLoginMode] = useState(true); // Toggle between login and register modes
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [newsletter, setNewsletter] = useState(false);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -34,17 +35,17 @@ const LoginModel: React.FC<LoginModelProps> = ({ isOpen, onClose }) => {
     setErrorMessage('');
 
     try {
-      if (isUserLoggedIn) {
-        // Perform login
+      if (isLoginMode) {
+        // Perform login logic
         // Example: await loginUser(email, password);
       } else {
-        // Perform registration
+        // Perform registration logic
         if (password !== confirmPassword) {
           throw new Error('Passwords do not match');
         }
-        // Example: await registerUser(email, password, name);
+        // Example: await registerUser(email, password, name, phoneNumber, newsletter);
       }
-      setIsUserLoggedIn(true);
+      // On success, optionally toggle the modal or reset the form fields
     } catch (error) {
       setErrorMessage(error instanceof Error ? error.message : 'An error occurred. Please try again.');
     } finally {
@@ -59,7 +60,7 @@ const LoginModel: React.FC<LoginModelProps> = ({ isOpen, onClose }) => {
           <div className="bg-white rounded-lg p-6 shadow-lg z-60">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-lg font-bold">
-                {isUserLoggedIn ? "Login" : "Register"}
+                {isLoginMode ? "Login" : "Register"}
               </h2>
               <button onClick={onClose} className="text-gray-500">
                 X
@@ -67,41 +68,58 @@ const LoginModel: React.FC<LoginModelProps> = ({ isOpen, onClose }) => {
             </div>
             <form onSubmit={handleSubmit}>
               {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-              <legend>Name</legend>
-              <input 
-                type="text" 
-                value={name} 
-                onChange={(e) => setName(e.target.value)} 
-                required 
-                className="border rounded p-2 mb-2 w-full" 
-              />
-              <legend>Phone Number</legend>
-              <input 
-                type="tel" 
-                value={phoneNumber} 
-                onChange={(e) => setPhoneNumber(e.target.value)} 
-                required 
-                className="border rounded p-2 mb-2 w-full" 
-              />
-              <legend>Email</legend>
-              <input 
-                type="email" 
-                value={email} 
-                onChange={(e) => setEmail(e.target.value)} 
-                required 
-                className="border rounded p-2 mb-2 w-full" 
-              />
-              <legend>Password</legend>
-              <input 
-                type="password" 
-                value={password} 
-                onChange={(e) => setPassword(e.target.value)} 
-                required 
-                className="border rounded p-2 mb-2 w-full" 
-              />
-              {!isUserLoggedIn && (
+              
+              {/* Conditionally show name and phone number fields for registration */}
+              {!isLoginMode && (
                 <>
-                  <legend>Confirm Password</legend>
+                  <label>
+                    Name
+                    <input 
+                      type="text" 
+                      value={name} 
+                      onChange={(e) => setName(e.target.value)} 
+                      required 
+                      className="border rounded p-2 mb-2 w-full" 
+                    />
+                  </label>
+                  <label>
+                    Phone Number
+                    <input 
+                      type="tel" 
+                      value={phoneNumber} 
+                      onChange={(e) => setPhoneNumber(e.target.value)} 
+                      required 
+                      className="border rounded p-2 mb-2 w-full" 
+                    />
+                  </label>
+                </>
+              )}
+              
+              <label>
+                Email
+                <input 
+                  type="email" 
+                  value={email} 
+                  onChange={(e) => setEmail(e.target.value)} 
+                  required 
+                  className="border rounded p-2 mb-2 w-full" 
+                />
+              </label>
+              <label>
+                Password
+                <input 
+                  type="password" 
+                  value={password} 
+                  onChange={(e) => setPassword(e.target.value)} 
+                  required 
+                  className="border rounded p-2 mb-2 w-full" 
+                />
+              </label>
+              
+              {/* Conditionally show confirm password for registration */}
+              {!isLoginMode && (
+                <label>
+                  Confirm Password
                   <input 
                     type="password" 
                     value={confirmPassword} 
@@ -109,12 +127,29 @@ const LoginModel: React.FC<LoginModelProps> = ({ isOpen, onClose }) => {
                     required 
                     className="border rounded p-2 mb-2 w-full" 
                   />
-                </>
+                </label>
               )}
-              <input type="checkbox" /> Sign up to newsletter
-              <br></br>
-              <button type="submit" disabled={isSubmitting} className="bg-blue-500 text-white rounded p-2 mt-2">
-                {isUserLoggedIn ? "Login" : "Register"}
+              
+              <label className="flex items-center">
+                <input 
+                  type="checkbox" 
+                  checked={newsletter}
+                  onChange={(e) => setNewsletter(e.target.checked)} 
+                  className="mr-2"
+                /> 
+                Sign up to newsletter
+              </label>
+              
+              <button type="submit" disabled={isSubmitting} className="bg-blue-500 text-white rounded p-2 mt-2 w-full">
+                {isLoginMode ? "Login" : "Register"}
+              </button>
+
+              <button 
+                type="button" 
+                onClick={() => setIsLoginMode(!isLoginMode)}
+                className="text-blue-500 mt-2 underline w-full"
+              >
+                {isLoginMode ? "Need to register?" : "Already have an account? Log in"}
               </button>
             </form>
           </div>
