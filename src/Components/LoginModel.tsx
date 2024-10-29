@@ -11,9 +11,7 @@ const LoginModel: React.FC<LoginModelProps> = ({ isOpen, onClose }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [name, setName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [newsletter, setNewsletter] = useState(false);
-
+  const [lastName, setLastName] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -37,13 +35,12 @@ const LoginModel: React.FC<LoginModelProps> = ({ isOpen, onClose }) => {
     try {
       if (isLoginMode) {
         // Perform login logic
-        // Example: await loginUser(email, password);
       } else {
         // Perform registration logic
         if (password !== confirmPassword) {
           throw new Error('Passwords do not match');
         }
-        // Example: await registerUser(email, password, name, phoneNumber, newsletter);
+        // Example: await registerUser(email, password, name, lastName);
       }
       // On success, optionally toggle the modal or reset the form fields
     } catch (error) {
@@ -69,7 +66,7 @@ const LoginModel: React.FC<LoginModelProps> = ({ isOpen, onClose }) => {
             <form onSubmit={handleSubmit}>
               {errorMessage && <p className="text-red-500">{errorMessage}</p>}
               
-              {/* Conditionally show name and phone number fields for registration */}
+              {/* Conditionally show name and surname fields for registration */}
               {!isLoginMode && (
                 <>
                   <label>
@@ -83,11 +80,11 @@ const LoginModel: React.FC<LoginModelProps> = ({ isOpen, onClose }) => {
                     />
                   </label>
                   <label>
-                    Phone Number
+                    Surname
                     <input 
-                      type="tel" 
-                      value={phoneNumber} 
-                      onChange={(e) => setPhoneNumber(e.target.value)} 
+                      type="text" 
+                      value={lastName} 
+                      onChange={(e) => setLastName(e.target.value)} 
                       required 
                       className="border rounded p-2 mb-2 w-full" 
                     />
@@ -129,16 +126,6 @@ const LoginModel: React.FC<LoginModelProps> = ({ isOpen, onClose }) => {
                   />
                 </label>
               )}
-              
-              <label className="flex items-center">
-                <input 
-                  type="checkbox" 
-                  checked={newsletter}
-                  onChange={(e) => setNewsletter(e.target.checked)} 
-                  className="mr-2"
-                /> 
-                Sign up to newsletter
-              </label>
               
               <button type="submit" disabled={isSubmitting} className="bg-blue-500 text-white rounded p-2 mt-2 w-full">
                 {isLoginMode ? "Login" : "Register"}

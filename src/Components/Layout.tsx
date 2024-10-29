@@ -14,9 +14,10 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 	return (
 		<>
 			<NavBar />
-			<HeaderBar />
-			<button onClick={openLoginModel}>Open Login</button>
+			<HeaderBar/>
+				<button className="flex " onClick={openLoginModel}>Open Login</button>
 			<LoginModel isOpen={isLoginModelOpen} onClose={closeLoginModel} />
+			
 			<main>{children}</main>
 			<Footer />
 		</>
