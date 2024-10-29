@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Artist } from "../types/Artist";
+import { Artist } from "../types/AllTypes";
 import { useNavigate } from "react-router-dom";
 
 //hello
@@ -116,8 +116,6 @@ function NavBar() {
               Stationary
             </a>
           </li>
-
-       
         </ul>
       </div>
     </nav>
