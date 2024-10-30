@@ -1,21 +1,17 @@
+import NavBar from "./NavBar";
+import Footer from "./Footer";
 
-import NavBar from './NavBar';
-import Footer from './Footer';
+import HeaderBar from "./HeaderBar";
 
-import HeaderBar from './HeaderBar';
-
-// Define props for the Layout component
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
- 
-
-	return (
-		<>
-			<NavBar />
-			<HeaderBar/>
-			<main>{children}</main>
-			<Footer />
-		</>
-	);
+  return (
+    <div className="flex flex-col min-h-screen">
+      <NavBar />
+      <HeaderBar />
+      <main className="flex-grow">{children}</main>
+      <Footer />
+    </div>
+  );
 };
 
 export default Layout;
