@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000'; // Replaced with the URL for the project's backend
+const API_URL = 'http://18.171.123.115:3000'; // Replaced with the URL for the project's backend
 
 export const authService = {
 	async login(credentials: { email: string; password: string }) {
