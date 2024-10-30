@@ -3,7 +3,7 @@ name: Frontend Deployment testing
 on:
     push:
         branches:
-            - main
+            - automate
 
 jobs:
     deploy:
