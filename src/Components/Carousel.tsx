@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-// import { ProductImage } from "../types/AllTypes";
+import { IoArrowBackCircle, IoArrowForwardCircle } from "react-icons/io5";
 
 function Carousel() {
   const [productImages, setProductImages] = useState<string[] | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [current, setCurrent] = useState(0);
 
   useEffect(() => {
     const fetchProductImages = async () => {
@@ -37,12 +38,44 @@ function Carousel() {
     );
   }
 
+  const previousSlide = () => {
+    if (current === 0) {
+      setCurrent(productImages.length - 1);
+    } else {
+      setCurrent(current - 1);
+    }
+  };
+
+  const nextSlide = () => {
+    if (current === productImages.length - 1) {
+      setCurrent(0);
+    } else {
+      setCurrent(current + 1);
+    }
+  };
+
   return (
-    <section className="carousel">
-      {productImages.map((imgSrc) => {
-        return <img src={imgSrc} />;
-      })}
-    </section>
+    <div className="carousel-images overflow-hidden relative">
+      <div
+        className={"flex transition ease-out duration-400"}
+        style={{
+          transform: `translateX(-${current * 100}%)`,
+        }}
+      >
+        {productImages.map((imgSrc) => {
+          return <img src={imgSrc} />;
+        })}
+      </div>
+
+      <div className="absolute top-0 h-full w-full px-3 flex justify-between items-center text-white text-3xl">
+        <button onClick={previousSlide}>
+          <IoArrowBackCircle />
+        </button>
+        <button onClick={nextSlide}>
+          <IoArrowForwardCircle />
+        </button>
+      </div>
+    </div>
   );
 }
 
