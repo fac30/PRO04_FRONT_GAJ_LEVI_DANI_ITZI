@@ -1,29 +1,31 @@
 import { useEffect, useState } from "react";
-import { ProductImage } from "../types/AllTypes";
+import { IoArrowBackCircle, IoArrowForwardCircle } from "react-icons/io5";
 
 function Carousel() {
-  const [productImages, setProductImages] = useState<ProductImage | null>(null);
+  const [productImages, setProductImages] = useState<string[] | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [current, setCurrent] = useState(0);
 
   useEffect(() => {
     const fetchProductImages = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/product-images`);
+        const response = await fetch(`http://18.171.123.115/:3000/product-images`);
         if (!response.ok) {
           throw new Error("Failed to fetch product images");
         }
         const data = await response.json();
-        const slideArr = data.map
-        setProductImages(data);
+
+        const slideArr = data.map((i: any) => i.image_url);
+
+        setProductImages(slideArr);
       } catch (error) {
         setError(
           error instanceof Error ? error.message : "Image not available"
         );
       }
     };
-    
-    fetchProductImages();
 
+    fetchProductImages();
   }, []);
 
   if (error || !productImages) {
@@ -36,16 +38,44 @@ function Carousel() {
     );
   }
 
-  //   const slideArray = [];
-  // the array should contain all the URLs of productImage.image_url
-  // Should i use a forEach?
+  const previousSlide = () => {
+    if (current === 0) {
+      setCurrent(productImages.length - 1);
+    } else {
+      setCurrent(current - 1);
+    }
+  };
+
+  const nextSlide = () => {
+    if (current === productImages.length - 1) {
+      setCurrent(0);
+    } else {
+      setCurrent(current + 1);
+    }
+  };
 
   return (
-    <section className="carousel">
-      {/* {slides.map(slideArray) => {
-        return <img src={slideArray} />
-      }} */}
-    </section>
+    <div className="carousel-images overflow-hidden relative">
+      <div
+        className={"flex transition ease-out duration-400"}
+        style={{
+          transform: `translateX(-${current * 100}%)`,
+        }}
+      >
+        {productImages.map((imgSrc) => {
+          return <img src={imgSrc} />;
+        })}
+      </div>
+
+      <div className="absolute top-0 h-full w-full px-3 flex justify-between items-center text-white text-3xl">
+        <button onClick={previousSlide}>
+          <IoArrowBackCircle />
+        </button>
+        <button onClick={nextSlide}>
+          <IoArrowForwardCircle />
+        </button>
+      </div>
+    </div>
   );
 }
 
