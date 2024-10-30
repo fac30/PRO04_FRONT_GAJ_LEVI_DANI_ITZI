@@ -6,7 +6,7 @@ import Gallery from "../Components/Gallery";
 import { Artist } from "../types/AllTypes";
 
 const ArtistPage: React.FC = () => {
-  const { artistId } = useParams<{ artistId: string }>();
+  const { id: artistId } = useParams<{ id: string }>();
   //const [artistID, setArtistID] = useState<Artist | null>(null);
   const [artists, setArtists] = useState<Artist | null>(null);
   const [loading, setLoading] = useState(true);

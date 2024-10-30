@@ -13,6 +13,7 @@ function Carousel() {
           throw new Error("Failed to fetch product images");
         }
         const data = await response.json();
+        const slideArr = data.map
         setProductImages(data);
       } catch (error) {
         setError(
@@ -20,9 +21,9 @@ function Carousel() {
         );
       }
     };
-    if (productImages) {
-      fetchProductImages();
-    }
+    
+    fetchProductImages();
+
   }, []);
 
   if (error || !productImages) {
