@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { ProductImage } from "../types/AllTypes";
+// import { ProductImage } from "../types/AllTypes";
 
 function Carousel() {
-  const [productImages, setProductImages] = useState<ProductImage | null>(null);
+  const [productImages, setProductImages] = useState<string[] | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -13,17 +13,18 @@ function Carousel() {
           throw new Error("Failed to fetch product images");
         }
         const data = await response.json();
-        const slideArr = data.map
-        setProductImages(data);
+
+        const slideArr = data.map((i: any) => i.image_url);
+
+        setProductImages(slideArr);
       } catch (error) {
         setError(
           error instanceof Error ? error.message : "Image not available"
         );
       }
     };
-    
-    fetchProductImages();
 
+    fetchProductImages();
   }, []);
 
   if (error || !productImages) {
@@ -36,15 +37,11 @@ function Carousel() {
     );
   }
 
-  //   const slideArray = [];
-  // the array should contain all the URLs of productImage.image_url
-  // Should i use a forEach?
-
   return (
     <section className="carousel">
-      {/* {slides.map(slideArray) => {
-        return <img src={slideArray} />
-      }} */}
+      {productImages.map((imgSrc) => {
+        return <img src={imgSrc} />;
+      })}
     </section>
   );
 }
