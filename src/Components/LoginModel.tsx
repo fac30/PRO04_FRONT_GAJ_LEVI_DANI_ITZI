@@ -9,7 +9,6 @@ export interface LoginModelProps {
 	error?: string; // Optional error message
 }
 
-
 const LoginModel: React.FC<LoginModelProps> = ({ isOpen, onClose, onLogin }) => {
 	const [isLoginMode, setIsLoginMode] = useState(true);
 	const [email, setEmail] = useState<string>('');
@@ -19,6 +18,7 @@ const LoginModel: React.FC<LoginModelProps> = ({ isOpen, onClose, onLogin }) => 
 	const [address, setAddress] = useState<string>('');
 	const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 	const [errorMessage, setErrorMessage] = useState<string>('');
+	const [validationErrors, setValidationErrors] = useState<{ [key: string]: string }>({});
 
 	useEffect(() => {
 		if (isOpen) {
@@ -31,39 +31,77 @@ const LoginModel: React.FC<LoginModelProps> = ({ isOpen, onClose, onLogin }) => 
 		};
 	}, [isOpen]);
 
- // ... previous code remains the same
+	// Sanitize function
+	const sanitize = (unsafe: string) => {
+		return unsafe.replace(/</g, "&lt;").replace(/>/g, "&gt;"); // Escape < and >
+	};
 
- const handleSubmit = async (event: React.FormEvent) => {
- 	event.preventDefault();
- 	setIsSubmitting(true);
- 	setErrorMessage('');
+	// Validation function
+	const validate = () => {
+		const errors: { [key: string]: string } = {};
+		if (!email) {
+			errors.email = 'Email is required';
+		} else if (!/\S+@\S+\.\S+/.test(email)) {
+			errors.email = 'Email is invalid';
+		}
+		if (!password) {
+			errors.password = 'Password is required';
+		}
+		if (!isLoginMode) {
+			if (!username) {
+				errors.username = 'Username is required';
+			}
+			if (!address) {
+				errors.address = 'Address is required';
+			}
+			if (password !== confirmPassword) {
+				errors.confirmPassword = 'Passwords do not match';
+			}
+		}
+		setValidationErrors(errors);
+		return Object.keys(errors).length === 0; // Return true if no errors
+	};
 
- 	try {
- 		if (isLoginMode) {
- 			// Perform login logic
- 			const credentials = { email, password }; // Gather form data
- 			await onLogin(credentials); // Use the onLogin prop here
- 			onClose(); // Close modal on successful login
- 			window.location.reload(); // Refresh or update UI
- 		} else {
- 			// Perform registration logic
- 			if (password !== confirmPassword) {
- 				throw new Error('Passwords do not match');
- 			}
- 			await authService.register({ username, email, password, address });
- 			onClose(); // Close modal on successful registration
- 			window.location.reload(); // Refresh or update UI
- 		}
- 	} catch (error) {
- 		setErrorMessage(
- 			error instanceof Error ? error.message : 'An error occurred. Please try again.'
- 		);
- 	} finally {
- 		setIsSubmitting(false);
- 	}
- };
+	const handleSubmit = async (event: React.FormEvent) => {
+		event.preventDefault();
+		setIsSubmitting(true);
+		setErrorMessage('');
+		setValidationErrors({}); // Clear previous validation errors
 
- // ... the rest of the component
+		if (!validate()) {
+			setIsSubmitting(false);
+			return; // Stop submission if validation fails
+		}
+
+		try {
+			if (isLoginMode) {
+				// Perform login logic
+				const credentials = { 
+					email: sanitize(email), 
+					password: sanitize(password) 
+				}; // Sanitize form data
+				await onLogin(credentials); // Use the onLogin prop here
+				onClose(); // Close modal on successful login
+				window.location.reload(); // Refresh or update UI
+			} else {
+				// Perform registration logic
+				await authService.register({ 
+					username: sanitize(username), 
+					email: sanitize(email), 
+					password: sanitize(password), 
+					address: sanitize(address) 
+				}); // Sanitize form data
+				onClose(); // Close modal on successful registration
+				window.location.reload(); // Refresh or update UI
+			}
+		} catch (error) {
+			setErrorMessage(
+				error instanceof Error ? error.message : 'An error occurred. Please try again.'
+			);
+		} finally {
+			setIsSubmitting(false);
+		}
+	};
 
 	return (
 		<>
@@ -94,6 +132,7 @@ const LoginModel: React.FC<LoginModelProps> = ({ isOpen, onClose, onLogin }) => 
 											required
 											className='border rounded p-2 mb-2 w-full'
 										/>
+										{validationErrors.username && <p className='text-red-500'>{validationErrors.username}</p>}
 									</label>
 									<label>
 										Address
@@ -105,6 +144,7 @@ const LoginModel: React.FC<LoginModelProps> = ({ isOpen, onClose, onLogin }) => 
 											required
 											className='border rounded p-2 mb-2 w-full'
 										/>
+										{validationErrors.address && <p className='text-red-500'>{validationErrors.address}</p>}
 									</label>
 								</>
 							)}
@@ -119,6 +159,7 @@ const LoginModel: React.FC<LoginModelProps> = ({ isOpen, onClose, onLogin }) => 
 									required
 									className='border rounded p-2 mb-2 w-full'
 								/>
+								{validationErrors.email && <p className='text-red-500'>{validationErrors.email}</p>}
 							</label>
 							<label>
 								Password
@@ -130,6 +171,7 @@ const LoginModel: React.FC<LoginModelProps> = ({ isOpen, onClose, onLogin }) => 
 									required
 									className='border rounded p-2 mb-2 w-full'
 								/>
+								{validationErrors.password && <p className='text-red-500'>{validationErrors.password}</p>}
 							</label>
 
 							{/* Confirm password for registration */}
@@ -144,6 +186,7 @@ const LoginModel: React.FC<LoginModelProps> = ({ isOpen, onClose, onLogin }) => 
 										required
 										className='border rounded p-2 mb-2 w-full'
 									/>
+									{validationErrors.confirmPassword && <p className='text-red-500'>{validationErrors.confirmPassword}</p>}
 								</label>
 							)}
 
