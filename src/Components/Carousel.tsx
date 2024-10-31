@@ -9,13 +9,16 @@ function Carousel() {
   useEffect(() => {
     const fetchProductImages = async () => {
       try {
-        const response = await fetch(`http://18.171.123.115/:3000/product-images`);
+        const response = await fetch(
+          `http://18.171.123.115:3000/product-images`
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch product images");
         }
         const data = await response.json();
 
         const slideArr = data.map((i: any) => i.image_url);
+        console.log(slideArr);
 
         setProductImages(slideArr);
       } catch (error) {
@@ -63,7 +66,7 @@ function Carousel() {
         }}
       >
         {productImages.map((imgSrc) => {
-          return <img src={imgSrc} />;
+          return <img key={imgSrc} src={imgSrc} />;
         })}
       </div>
 
