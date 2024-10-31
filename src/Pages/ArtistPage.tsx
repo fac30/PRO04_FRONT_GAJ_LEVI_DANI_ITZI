@@ -17,7 +17,7 @@ const ArtistPage: React.FC = () => {
       try {
         console.log(`Inside Fetch ${artistId}`);
         const response = await fetch(
-          `http://localhost:3000/artist/${artistId}`
+          `http://18.171.123.115:3000/artist/${artistId}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch artists");

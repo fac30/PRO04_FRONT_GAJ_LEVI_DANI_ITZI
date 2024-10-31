@@ -27,7 +27,7 @@ function NavBar() {
   useEffect(() => {
     const fetchArtists = async () => {
       try {
-        const response = await fetch("http://localhost:3000/artists");
+        const response = await fetch("http://18.171.123.115:3000/artists");
         if (!response.ok) {
           throw new Error("Failed to fetch artists");
         }

@@ -9,7 +9,7 @@ function Carousel() {
   useEffect(() => {
     const fetchProductImages = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/product-images`);
+        const response = await fetch(`http://18.171.123.115/:3000/product-images`);
         if (!response.ok) {
           throw new Error("Failed to fetch product images");
         }
