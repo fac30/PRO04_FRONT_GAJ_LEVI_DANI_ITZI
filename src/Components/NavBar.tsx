@@ -61,7 +61,7 @@ function NavBar() {
   }, []);
 
   return (
-    <nav className="bg-gray-100 py-4">
+    <nav className="bg-gray-100 py-4 z-20">
       <div className="container mx-auto relative">
         {" "}
         {/* Make this relative for dropdown positioning */}
@@ -73,7 +73,7 @@ function NavBar() {
           </li>
 
           {/* Wrap dropdown in a div and add the ref here */}
-          <div ref={dropdownRef} className="relative">
+          <div ref={dropdownRef} className="relative z-30">
             <button onClick={() => setIsOpen(!isOpen)} className="nav-link">
               Artist
             </button>

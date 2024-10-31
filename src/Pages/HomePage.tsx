@@ -4,7 +4,9 @@ import Carousel from "../Components/Carousel";
 function HomePage() {
   return (
     <Layout>
-      <Carousel />
+      <section className="carousel w-[60%] m-auto z-10">
+        <Carousel />
+      </section>
     </Layout>
   );
 }
